@@ -39,9 +39,21 @@ module.exports = class extends mofron.class.Component {
             
             let sw = this;
             this.event(
-	        new Click(() => { sw.switch(); })
+	        new Click({
+                    listener: () => { sw.switch(); },
+                    tag: this.id()
+                })
             );
         } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+
+    disableClick () {
+        try {
+            this.event({ modname:'Click',tag:this.id() }).suspend(true);
+	} catch (e) {
             console.error(e.stack);
             throw e;
         }
@@ -83,7 +95,7 @@ module.exports = class extends mofron.class.Component {
                 if (set_idx > chd.length) {
                     throw new Error('invalid parameter');
                 }
-                set_idx++;
+                //set_idx++;
             }
             if (set_idx >= chd.length) {
                 set_idx = 0;
@@ -139,6 +151,19 @@ module.exports = class extends mofron.class.Component {
 	}
     }
     
-    
+    getIndex () {
+        try {
+            let chd = this.child();
+            for (let cidx in chd) {
+                if (true === chd[cidx].visible()) {
+                    return parseInt(cidx);                    
+                }
+            }
+	    return null;
+	} catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
 }
 /* end of file */

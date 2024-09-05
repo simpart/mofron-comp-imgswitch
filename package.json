@@ -1,6 +1,6 @@
 {
   "name": "mofron-comp-imgswitch",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "image switch component for mofron",
   "main": "index.js",
   "scripts": {
